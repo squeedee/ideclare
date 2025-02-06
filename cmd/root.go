@@ -105,7 +105,7 @@ func New(use, short string, options []crane.Option) *cobra.Command {
 	}
 
 	root.AddCommand(
-		NewCmdAppend(&options),
+		NewCmdJobify(&options),
 		NewCmdAuth(options, "crane", "auth"),
 		NewCmdVersion(),
 	)
