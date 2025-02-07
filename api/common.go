@@ -5,7 +5,7 @@ import (
 	"fmt"
 )
 
-// Value can store either a string or float64 value
+// Value represents a scalar of int, float or string in json/yaml
 type Value struct {
 	stringValue *string
 	intVal      *int
@@ -34,12 +34,10 @@ func NewNilValue() *Value {
 	return &Value{}
 }
 
-// IsNull returns true if the value is null
-func (d *Value) IsNull() bool {
+func (d *Value) IsNil() bool {
 	return d.stringValue == nil && d.intVal == nil && d.floatVal == nil
 }
 
-// MarshalJSON implements yaml.Marshaler
 func (d *Value) MarshalJSON() ([]byte, error) {
 	if d.stringValue != nil {
 		return json.Marshal(d.stringValue)
@@ -56,7 +54,6 @@ func (d *Value) MarshalJSON() ([]byte, error) {
 	return json.Marshal(nil)
 }
 
-// UnmarshalJSON implements yaml.Unmarshaler
 func (d *Value) UnmarshalJSON(data []byte) error {
 	// Handle null value
 	if string(data) == "null" {
