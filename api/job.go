@@ -1,5 +1,9 @@
 package api
 
+import (
+	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
+)
+
 // First quandry; How do we verify input digests without making that the job's responsibility.
 // In my mind, this is a vital lift. Job author says "I need this input, and I can trust that the system will capture its signature"
 // Maybe the difference between "Env Vars" and these "digestable inputs" is that they are "Externals".
@@ -25,7 +29,7 @@ type Input struct {
 	Optional bool `json:"optional"`
 
 	// Default value that can be either string or number
-	Default Value `json:"default"`
+	Default unstructured.Unstructured `json:"default"`
 
 	// Mapping defines how the input is passed into the container
 	Mapping Mapping `json:"mapping"`
